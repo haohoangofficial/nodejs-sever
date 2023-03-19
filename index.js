@@ -11,13 +11,13 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-app.post('/webhook', async function (req, res) {
+app.post('/', async function (req, res) {
   const { body } = req
   fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
   res.status(200).send({ message: 'Node.js and Express REST API' });
 });
 
-app.get('/webhook', function (req, res) {
+app.get('/', function (req, res) {
   res.send({ message: 'Node.js and Express REST API' });
 });
 
