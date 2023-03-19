@@ -4,8 +4,6 @@ const port = 3002;
 const app = express();
 const url = 'https://script.google.com/macros/s/AKfycbwMBLkAtUTsX2BbIoEITRy9mBQWdvwwApzhtmsmuc4nOzULyYYb7OmnOlsCe2SaBlgW/exec'
 const bodyParser = require('body-parser');
-const { fetch_url } = require('./fetch');
-const access_token = process.env.ACCESS_TOKEN
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -18,7 +16,7 @@ app.post('/', async function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html', {root: __dirname })
+  res.send('<meta name="zalo-platform-site-verification" content="NFxX2jVxQ01IvTCuaD5v56d5-HY5kYj6E3K" />')
 });
 
 
@@ -26,3 +24,30 @@ const server = app.listen(port, (error) => {
   if (error) return console.log(`Error: ${error}`);
   console.log(`Server listening on port ${server.address().port}`);
 });
+
+const fetch_url = async ({ url, method, headers, body }) => {
+  try {
+      var requestOptions = {
+          method: method,
+          headers: headers,
+          body: body,
+          redirect: 'follow'
+      };
+      const source = await fetch(url, requestOptions)
+      const response = await  source.text()
+      console.log(response);
+      return {
+          status: true,
+          message: response,
+          error: null
+      }
+
+  } catch (error) {
+      console.log(error);
+      return {
+          status: false,
+          message: null,
+          error: error
+      }
+  }
+}
