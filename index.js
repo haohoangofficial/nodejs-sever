@@ -34,11 +34,12 @@ const fetch_url = async ({ url, method, headers, body }) => {
           headers: headers,
           data: body,
       };
-      const source = axios.request(url, requestOptions)
+      const source = await axios.request(url, requestOptions)
+      const response = await source.data
       console.log(response);
       return {
           status: true,
-          message: source,
+          message: response,
           error: null
       }
 
