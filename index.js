@@ -4,6 +4,7 @@ const port = 3002;
 const app = express();
 const url = 'https://script.google.com/macros/s/AKfycbwMBLkAtUTsX2BbIoEITRy9mBQWdvwwApzhtmsmuc4nOzULyYYb7OmnOlsCe2SaBlgW/exec'
 const bodyParser = require('body-parser');
+const fetch = require("node-fetch");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
