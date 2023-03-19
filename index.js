@@ -18,7 +18,7 @@ app.post('/', async function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.send({ message: 'Node.js and Express REST API' });
+  res.sendFile('index.html', {root: __dirname })
 });
 
 
