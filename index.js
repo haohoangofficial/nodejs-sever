@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-app.post('/', async function (req, res) {
+app.post('/', function (req, res) {
   const { body } = req
-  await fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
+  fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
   return res.status(200).send({ message: 'Node.js and Express REST API' });
 });
 
