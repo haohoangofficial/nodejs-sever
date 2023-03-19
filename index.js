@@ -4,7 +4,8 @@ const port = 3002;
 const app = express();
 const url = 'https://script.google.com/macros/s/AKfycbwMBLkAtUTsX2BbIoEITRy9mBQWdvwwApzhtmsmuc4nOzULyYYb7OmnOlsCe2SaBlgW/exec'
 const bodyParser = require('body-parser');
-const fetch = require("node-fetch");
+const { default: axios } = require('axios');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -31,11 +32,10 @@ const fetch_url = async ({ url, method, headers, body }) => {
       var requestOptions = {
           method: method,
           headers: headers,
-          body: body,
-          redirect: 'follow'
+          data: body,
       };
-      const source = await fetch(url, requestOptions)
-      const response = await  source.text()
+      const source = await axios.request(url, requestOptions)
+      const response = await source.data
       console.log(response);
       return {
           status: true,
