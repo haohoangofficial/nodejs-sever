@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const port = 3333;
+const port = 3002;
 const app = express();
 const url = 'https://script.google.com/macros/s/AKfycbwMBLkAtUTsX2BbIoEITRy9mBQWdvwwApzhtmsmuc4nOzULyYYb7OmnOlsCe2SaBlgW/exec'
 const bodyParser = require('body-parser');
@@ -12,21 +12,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/webhook', async function (req, res) {
-  const { headers, body } = req
-  const signature = headers['x-zevent-signature']
-  const { event_name } = body
-  console.log(access_token);
-  if (event_name === 'user_send_text') {
-    const { sender, recipient, message } = body
-    const { text } = message
-    var formdata = new FormData();
-    formdata.append("access_token", access_token);
-    formdata.append("text", text.toUpperCase()); 
-    formdata.append("platform", 'Zalo'); 
-    formdata.append("uid", sender.id); 
-    const response = await fetch_url({ url, method: 'post', headers: {}, body: formdata })
-    console.log(response);
-  }
+  const { body } = req
+  fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
   res.status(200).send({ message: 'Node.js and Express REST API' });
 });
 

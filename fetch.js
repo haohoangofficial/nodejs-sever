@@ -26,9 +26,5 @@ const fetch_url = async ({ url, method, headers, body }) => {
 }
 
 
-const get_refresh = ({ access_token }) => {
-
-}
-
 
 module.exports = { fetch_url }
