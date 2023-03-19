@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-app.post('/', function (req, res) {
+app.post('/', async function (req, res) {
   const { body } = req
-  fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
+  await fetch_url({ url, method: 'post', headers: {}, body: JSON.stringify(body) })
   return res.status(200).send({ message: 'Node.js and Express REST API' });
 });
 
@@ -34,12 +34,11 @@ const fetch_url = async ({ url, method, headers, body }) => {
           headers: headers,
           data: body,
       };
-      const source = await axios.request(url, requestOptions)
-      const response = await source.data
+      const source = axios.request(url, requestOptions)
       console.log(response);
       return {
           status: true,
-          message: response,
+          message: source,
           error: null
       }
 
